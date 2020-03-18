@@ -24,12 +24,14 @@ include $(CLEAR_VARS)
 # LOCAL_MODULE := sensors.default
 LOCAL_MODULE := sensors.hal.tof
 
-LOCAL_C_INCLUDES:= \
-        kernel/include/linux/input/ \
+#LOCAL_C_INCLUDES:= \
+#        kernel/include/linux/input/ \
 
 #LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+#LOCAL_MODULE_RELATIVE_PATH := hw
 
 LOCAL_MODULE_TAGS := optional
+LOCAL_VENDOR_MODULE := true
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
 LOCAL_SRC_FILES :=                        \
@@ -38,8 +40,7 @@ LOCAL_SRC_FILES :=                        \
                 ProximitySensor.cpp    	  \
                 InputEventReader.cpp
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils 
-LOCAL_PRELINK_MODULE := false
+LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware libutils
 
 include $(BUILD_SHARED_LIBRARY)
 

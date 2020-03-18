@@ -33,7 +33,7 @@ __BEGIN_DECLS
 //#define PROXIMITY_SET_DELAY_FILENAME	"/sys/kernel/range/set_delay_ms"
 #define PROXIMITY_MAX_RANGE				819
 #define PROXIMITY_POWER_CONSUMPTION		18
-#define PROXIMITY_MIN_DELAY				30000 //in microseconds
+#define PROXIMITY_MIN_DELAY				1000 //in microseconds
 #define PROXIMITY_FIFO_RESERVED_COUNT	0
 #define PROXIMITY_FIFO_MAX_COUNT		0
 #define SENSOR_TYPE_TIME_OF_FLIGHT      (40)

@@ -23,6 +23,7 @@
 #include <sys/select.h>
 #include <cutils/log.h>
 #include <linux/input.h>
+#include <stdio.h>
 
 #include "configuration.h"
 #include "ProximitySensor.h"
@@ -177,7 +178,7 @@ int ProximitySensor::readEvents(sensors_event_t* data, int count)
 
     ssize_t n = mInputReader.fill(data_fd);
     if (n < 0){
-        LOGE("ProximitySensor::readEvents: Did not successfully read an event, error: %d", n);
+        LOGE("ProximitySensor::readEvents: Did not successfully read an event, error: %zd", n);
         return n;
     }
 
