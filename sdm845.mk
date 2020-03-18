@@ -145,6 +145,10 @@ PRODUCT_PACKAGES += \
     Snap \
     vendor.qti.hardware.camera.device@1.0.vendor
 
+# TOF Sensor
+PRODUCT_PACKAGES += \
+    sensors.hal.tof
+    
 # Context Hub
 PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0-impl.generic \
