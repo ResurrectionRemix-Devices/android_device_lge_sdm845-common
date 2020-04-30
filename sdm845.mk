@@ -132,7 +132,28 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0
+    android.hardware.audio@2.0-service \
+    android.hardware.audio@5.0-impl \
+    android.hardware.audio.effect@5.0-impl \
+    android.hardware.audio.common@2.0-util \
+    android.hardware.audio.common@5.0-util \
+    android.hardware.soundtrigger@2.1-impl \
+    android.hardware.bluetooth.audio@2.0-impl \
+    audio.a2dp.default \
+    audio.bluetooth.default \
+    audio.r_submix.default \
+    audio.usb.default \
+    libaudio-resampler \
+    libaudioroute \
+    libhdmiedid \
+    libhfp \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libvolumelistener \
+    tinymix \
+    libtinycompress \
+    libtinycompress.vendor
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 3120
@@ -367,8 +388,8 @@ PRODUCT_PACKAGES += \
     thermal.sdm845
 
 # Touch
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.touch@1.0-service.judy
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.judy
 
 # Trust HAL
 PRODUCT_PACKAGES += \
@@ -376,8 +397,7 @@ PRODUCT_PACKAGES += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service \
-    android.hardware.usb.gadget@1.0
+    android.hardware.usb@1.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
