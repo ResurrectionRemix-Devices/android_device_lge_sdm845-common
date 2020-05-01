@@ -51,7 +51,11 @@
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
+        <item>"softap0"</item>
+        <item>"wigig0"</item>
+        <item>"wifi_br0"</item>
         <item>"wlan0"</item>
+        <item>"wlan1"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -171,7 +175,7 @@
     <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
 
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
-    <bool translatable="false" name="config_wifi_background_scan_support">false</bool>
+    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
     <!-- Wifi driver supports batched scan -->
     <bool translatable="false" name="config_wifi_batched_scan_supported">true</bool>
@@ -240,7 +244,7 @@
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
 
     <!-- Specifies whether to decouple the interactive state of the device from the display on/off state. -->
-    <bool name="config_powerDecoupleInteractiveModeFromDisplay">true</bool>
+    <bool name="config_powerDecoupleInteractiveModeFromDisplay">false</bool>
 
     <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
     <bool name="config_displayBlanksAfterDoze">false</bool>
@@ -302,6 +306,15 @@
         <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
         <item>"/apex/com.android.media/javalib/updatable-media.jar"</item>
+        <item>"/product/priv-app/SystemUI/SystemUI.apk"</item>	
+        <item>"/system/lib64/libsurfaceflinger.so"</item>	
+        <item>"/system/lib64/libRScpp.so"</item>	
+        <item>"/system/lib64/libRS.so"</item>	
+        <item>"/system/lib64/libRS_internal.so"</item>	
+        <item>"/system/lib64/libbcinfo.so"</item>	
+        <item>"/system/lib64/libRSDriver.so"</item>	
+        <item>"/system/lib64/libRSCpuRef.so"</item>	
+        <item>"/system/lib64/libblas.so"</item>
     </string-array>
 
     <!-- List of files pinned by the Pinner Service with the apex boot image -->
@@ -313,6 +326,8 @@
         <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
         <item>"/apex/com.android.media/javalib/updatable-media.jar"</item>
+        <item>"/system/priv-app/SystemUI/SystemUI.apk"</item>	
+        <item>"/system/lib64/libsurfaceflinger.so"</item>
     </string-array>
 
     <!-- Should the pinner service pin the Camera application? -->
@@ -351,7 +366,7 @@
     <bool name="config_enableHapticTextHandle">true</bool>
 
     <!-- True if the firmware supports connected MAC randomization -->
-    <bool name="config_wifi_connected_mac_randomization_supported">false</bool>
+    <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
 
     <!-- True if the firmware supports Wi-Fi link probing -->
     <bool name="config_wifi_link_probing_supported">true</bool>
