@@ -3535,7 +3535,7 @@
 
 <!-- ESS DAC START -->
     <path name="headphones-hifi-dac">
-        <ctl name="Es9018 AVC Volume" value="15" />
+        <ctl name="Es9018 AVC Volume" value="6" />
         <ctl name="Es9018 Master Volume" value="0" />
         <ctl name="Es9018 HEADSET TYPE" value="1" />
     </path>
@@ -3553,7 +3553,7 @@
     </path>
 
     <path name="headphones-hifi-dac-44.1">
-        <ctl name="Es9018 AVC Volume" value="14" />
+        <ctl name="Es9018 AVC Volume" value="6" />
         <ctl name="Es9018 Master Volume" value="0" />
         <ctl name="Es9018 HEADSET TYPE" value="1" />
     </path>
@@ -3572,19 +3572,19 @@
 
     <path name="headphones-hifi-dacdop">
         <ctl name="Es9018 Master Volume" value="0" />
-        <ctl name="Es9018 AVC Volume" value="15" />
+        <ctl name="Es9018 AVC Volume" value="6" />
         <ctl name="Es9018 HEADSET TYPE" value="1" />
     </path>
 
     <path name="headphones-hifi-dacdop-advanced">
         <ctl name="Es9018 Master Volume" value="0" />
-        <ctl name="Es9018 AVC Volume" value="1" />
+        <ctl name="Es9018 AVC Volume" value="0" />
         <ctl name="Es9018 HEADSET TYPE" value="2" />
     </path>
 
     <path name="headphones-hifi-dacdop-aux">
         <ctl name="Es9018 Master Volume" value="0" />
-        <ctl name="Es9018 AVC Volume" value="7" />
+        <ctl name="Es9018 AVC Volume" value="6" />
         <ctl name="Es9018 HEADSET TYPE" value="3" />
     </path>
 
