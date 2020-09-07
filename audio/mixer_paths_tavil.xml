@@ -2281,7 +2281,7 @@
     </path>
 
     <path name="camcorder-mic">
-        <path name="camcorder-preview-mic" />
+        <path name="handset-mic" />
     </path>
 
     <path name="hdmi-tx">
