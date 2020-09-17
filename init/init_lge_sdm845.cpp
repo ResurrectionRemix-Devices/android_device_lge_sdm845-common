@@ -29,7 +29,9 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <dirent.h>
 #include <fcntl.h>
+#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -51,8 +53,7 @@ using android::base::Trim;
 using android::base::GetProperty;
 using android::init::property_set;
 
-void property_override(const std::string& name, const std::string& value)
-{
+void property_override(const std::string& name, const std::string& value) {
     size_t valuelen = value.size();
 
     prop_info* pi = (prop_info*) __system_property_find(name.c_str());
@@ -68,56 +69,80 @@ void property_override(const std::string& name, const std::string& value)
     }
 }
 
-void init_target_properties()
-{
-    std::string device;
+void init_target_properties() {
+    std::string model;
+    std::string product_name;
     std::string cmdline;
-    bool unknownDevice = true;
+    std::string cust_prop_name = "cust.prop";
+    std::string default_cust_prop_path = "/oem/OP/" + cust_prop_name;
+    std::string cust_prop_path;
+    std::string cust_prop_line;
+    DIR *dir;
+    struct dirent *ent;
+    struct stat statBuf;
+    bool unknownModel = true;
     bool dualSim = false;
-    bool isGlobal = false;
 
     android::base::ReadFileToString("/proc/cmdline", &cmdline);
 
     for (const auto& entry : android::base::Split(android::base::Trim(cmdline), " ")) {
         std::vector<std::string> pieces = android::base::Split(entry, "=");
         if (pieces.size() == 2) {
-            if(pieces[0].compare("androidboot.vendor.lge.model.name") == 0)
+            if(pieces[0].compare("androidboot.vendor.lge.product.model") == 0)
             {
-            	device = pieces[1];
-		unknownDevice = false;
-            } else if(pieces[0].compare("lge.dsds") == 0 && pieces[1].compare("dsds") == 0)
+                model = pieces[1];
+                unknownModel = false;
+            } else if(pieces[0].compare("androidboot.vendor.lge.sim_num") == 0 && pieces[1].compare("2") == 0)
             {
-		dualSim = true;
-            } else if(pieces[0].compare("lge.ntcode_op") == 0 && pieces[1].compare("GLOBAL") == 0)
-            {
-                isGlobal = true;
+                dualSim = true;
             }
         }
     }
 
-    if(unknownDevice)
-    {
-        device = "UNKNOWN";
+    cust_prop_path = default_cust_prop_path;
+
+    if((dir = opendir("/oem/OP/")) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            if(ent->d_type == DT_DIR) {
+                std::string tmp = "/oem/OP/";
+                tmp.append(ent->d_name);
+                tmp.append("/");
+                tmp.append(cust_prop_name);
+                if(stat(tmp.c_str(), &statBuf) == 0)
+                    cust_prop_path = tmp;
+            }
+        }
+        closedir (dir);
+    }
+    std::ifstream cust_prop_stream(cust_prop_path, std::ifstream::in);
+
+    while(std::getline(cust_prop_stream, cust_prop_line)) {
+        std::vector<std::string> pieces = android::base::Split(cust_prop_line, "=");
+        if (pieces.size() == 2) {
+            if(pieces[0].compare("ro.vendor.lge.build.target_region") == 0 ||
+               pieces[0].compare("ro.vendor.lge.build.target_operator") == 0 ||
+               pieces[0].compare("ro.vendor.lge.build.target_country") == 0 ||
+               pieces[0].compare("telephony.lteOnCdmaDevice") == 0 ||
+               pieces[0].compare("persist.vendor.lge.audio.voice.clarity") == 0)
+            {
+                property_override(pieces[0], pieces[1]);
+            }
+        }
     }
 
-    if(dualSim)
-    {
+    if(unknownModel) {
+        model = "UNKNOWN";
+    }
+
+    if(dualSim) {
         property_set("persist.radio.multisim.config", "dsds");
     }
 
-    if(isGlobal)
-    {
-        property_set("ro.product.name", "judyln_lao_eea");
-        property_set("ro.product.vendor.name", "judyln_lao_eea");
-    } else 
-    {
-        property_set("ro.product.name", "judyln_lao_com");
-        property_set("ro.product.vendor.name", "judyln_lao_com");
-    }
-
-    property_set("ro.product.model", device);
-    property_set("ro.vendor.product.model", device);
-    property_set("ro.product.system.model", device);
+    property_override("ro.product.model", model);
+    property_override("ro.product.odm.model", model);
+    property_override("ro.product.product.model", model);
+    property_override("ro.product.system.model", model);
+    property_override("ro.product.vendor.model", model);
 }
 
 void vendor_load_properties() {

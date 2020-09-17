@@ -51,17 +51,18 @@
          Wifi interfaces.  If the device doesn't want to support tethering over Wifi this
          should be empty.  An example would be "softap.*" -->
     <string-array translatable="false" name="config_tether_wifi_regexs">
-        <item>"softap0"</item>
-        <item>"wigig0"</item>
-        <item>"wifi_br0"</item>
-        <item>"wlan0"</item>
-        <item>"wlan1"</item>
+        <item>softap0</item>
+        <item>wigig0</item>
+        <item>wifi_br0</item>
+        <item>wlan0</item>
+        <item>wlan1</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          bluetooth interfaces.  If the device doesn't want to support tethering over bluetooth this
          should be empty. -->
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
+        <item>"bnep\\d"</item>
         <item>"bt-pan"</item>
     </string-array>
 
@@ -126,13 +127,10 @@
         <item>wifi_p2p,13,1,0,-1,true</item>
         <item>mobile_ia,14,0,2,-1,true</item>
         <item>mobile_emergency,15,0,2,-1,true</item>
-        <item>mobile_vzwapp,19,0,2,60000,true</item>
-        <item>mobile_rcs,22,0,0,-1,true</item>
+        <item>mobile_vzwapp,22,0,2,60000,true</item>
         <item>mobile_xcap,23,0,2,-1,true</item>
         <item>mobile_admin,24,0,2,60000,true</item>
-        <item>mobile_wap,26,0,2,60000,true</item>
         <item>mobile_bip,27,0,2,60000,true</item>
-        <item>mobile_vtims,28,0,2,-1,true</item>
     </string-array>
 
     <!-- This string array should be overridden by the device to present a list of radio
@@ -223,6 +221,9 @@
          during initialization when the setting is still null. -->
     <bool name="config_dozeAlwaysOnEnabled">true</bool>
 
+    <!-- Whether the display blanks itself when transitioning from a doze to a non-doze state -->
+    <bool name="config_displayBlanksAfterDoze">false</bool>
+
     <!-- Power Management: Specifies whether to decouple the auto-suspend state of the
          device from the display on/off state.
 
@@ -246,14 +247,12 @@
     <!-- Specifies whether to decouple the interactive state of the device from the display on/off state. -->
     <bool name="config_powerDecoupleInteractiveModeFromDisplay">false</bool>
 
-    <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
-    <bool name="config_displayBlanksAfterDoze">false</bool>
-
     <!-- Configure mobile tcp buffer sizes in the form:
          rat-name:rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max
          If no value is found for the rat-name in use, the system default will be applied.
     -->
     <string-array name="config_mobile_tcp_buffers">
+        <item>5gnr:2097152,6291456,16777216,512000,2097152,8388608</item>
         <item>lte:2097152,4194304,8388608,262144,524288,1048576</item>
         <item>lte_ca:4096,6291456,12582912,4096,1048576,2097152</item>
         <item>umts:4094,87380,1220608,4096,16384,1220608</item>
@@ -306,14 +305,15 @@
         <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
         <item>"/apex/com.android.media/javalib/updatable-media.jar"</item>
-        <item>"/product/priv-app/SystemUI/SystemUI.apk"</item>	
-        <item>"/system/lib64/libsurfaceflinger.so"</item>	
-        <item>"/system/lib64/libRScpp.so"</item>	
-        <item>"/system/lib64/libRS.so"</item>	
-        <item>"/system/lib64/libRS_internal.so"</item>	
-        <item>"/system/lib64/libbcinfo.so"</item>	
-        <item>"/system/lib64/libRSDriver.so"</item>	
-        <item>"/system/lib64/libRSCpuRef.so"</item>	
+        <item>"/product/priv-app/SystemUI/SystemUI.apk"</item>
+        <item>"/product/priv-app/SystemUI/oat/arm64/SystemUI.odex"</item>
+        <item>"/system/lib64/libsurfaceflinger.so"</item>
+        <item>"/system/lib64/libRScpp.so"</item>
+        <item>"/system/lib64/libRS.so"</item>
+        <item>"/system/lib64/libRS_internal.so"</item>
+        <item>"/system/lib64/libbcinfo.so"</item>
+        <item>"/system/lib64/libRSDriver.so"</item>
+        <item>"/system/lib64/libRSCpuRef.so"</item>
         <item>"/system/lib64/libblas.so"</item>
     </string-array>
 
@@ -326,7 +326,7 @@
         <item>"/apex/com.android.runtime/javalib/core-oj.jar"</item>
         <item>"/apex/com.android.runtime/javalib/core-libart.jar"</item>
         <item>"/apex/com.android.media/javalib/updatable-media.jar"</item>
-        <item>"/system/priv-app/SystemUI/SystemUI.apk"</item>	
+        <item>"/system/priv-app/SystemUI/SystemUI.apk"</item>
         <item>"/system/lib64/libsurfaceflinger.so"</item>
     </string-array>
 
@@ -370,10 +370,6 @@
 
     <!-- True if the firmware supports Wi-Fi link probing -->
     <bool name="config_wifi_link_probing_supported">true</bool>
-
-    <bool name="config_proximityCheckOnWake">false</bool>
-    <integer name="config_proximityCheckTimeout">250</integer>
-    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
     <!-- Whether device has screen with higher aspect ratio -->
     <bool name="config_haveHigherAspectRatioScreen">true</bool>

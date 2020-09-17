@@ -14,8 +14,9 @@
 // limitations under the License.
 
 cc_binary {
-    name: "vendor.lineage.touch@1.0-service.judy",
-    init_rc: ["vendor.lineage.touch@1.0-service.judy.rc"],
+    name: "vendor.lineage.touch@1.0-service.lge_sdm845",
+    vintf_fragments: ["vendor.lineage.touch@1.0-service.lge_sdm845.xml"],
+    init_rc: ["vendor.lineage.touch@1.0-service.lge_sdm845.rc"],
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
     vendor: true,
@@ -25,6 +26,7 @@ cc_binary {
     ],
     shared_libs: [
         "libbase",
+        "libcutils",
         "libhidlbase",
         "libhidltransport",
         "libutils",

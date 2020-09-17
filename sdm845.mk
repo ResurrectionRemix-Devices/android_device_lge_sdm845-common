@@ -27,12 +27,16 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(COMMON_PATH)/overlay
+    $(COMMON_PATH)/overlay \
+    $(COMMON_PATH)/overlay-system
 
 PRODUCT_ENFORCE_RRO_TARGETS := *
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(COMMON_PATH)/overlay-lineage/lineage-sdk
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
+    $(COMMON_PATH)/overlay-lineage/lineage-sdk \
+    $(COMMON_PATH)/overlay-system
 
 # Properties
+TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
 TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
 TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
 -include frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk
@@ -75,7 +79,7 @@ AB_OTA_PARTITIONS += \
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/system/bin/otapreopt_script \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
@@ -83,7 +87,7 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # boot_control HAL and its dependencies.
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     bootctrl.sdm845.recovery \
-    libgptutils.judy.recovery \
+    libgptutils.lge_sdm845.recovery \
     libz \
     libcutils
 
@@ -97,12 +101,14 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
     android.hardware.audio@2.0-service \
     android.hardware.audio@5.0-impl \
-    android.hardware.audio.effect@5.0-impl \
     android.hardware.audio.common@2.0-util \
     android.hardware.audio.common@5.0-util \
-    android.hardware.soundtrigger@2.2-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@5.0-impl \
+    android.hardware.soundtrigger@2.1-impl \
     android.hardware.bluetooth.audio@2.0-impl \
     audio.a2dp.default \
     audio.bluetooth.default \
@@ -121,28 +127,37 @@ PRODUCT_PACKAGES += \
     libtinycompress.vendor
 
 PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/audio/audio_io_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_io_policy.conf \
     $(COMMON_PATH)/audio/audio_output_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_output_policy.conf \
     $(COMMON_PATH)/audio/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
     $(COMMON_PATH)/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    $(COMMON_PATH)/audio/audio_effects_tune.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects_tune.xml \
+    $(COMMON_PATH)/audio/audio_platform_info_i2s.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_platform_info_i2s.xml \
+    $(COMMON_PATH)/audio/audio_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy.conf \
+    $(COMMON_PATH)/audio/audio_policy_volumes_lge.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes_lge.xml \
     $(COMMON_PATH)/audio/audio_tuning_mixer_tavil.txt:$(TARGET_COPY_OUT_VENDOR)/etc/audio_tuning_mixer_tavil.txt \
-    $(COMMON_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
     $(COMMON_PATH)/audio/audio_policy_configuration_lge.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_lge.xml \
+    $(COMMON_PATH)/audio/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml \
     $(COMMON_PATH)/audio/graphite_ipc_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/graphite_ipc_platform_info.xml \
     $(COMMON_PATH)/audio/listen_platform_info.xml:$(TARGET_COPY_OUT_VENDOR)/etc/listen_platform_info.xml \
     $(COMMON_PATH)/audio/mixer_paths_i2s.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_i2s.xml \
     $(COMMON_PATH)/audio/mixer_paths_qvr.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_qvr.xml \
     $(COMMON_PATH)/audio/mixer_paths_skuk.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_skuk.xml \
-    $(COMMON_PATH)/audio/mixer_paths_tavil.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths_tavil.xml
+    $(COMMON_PATH)/audio/sound_trigger_mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sound_trigger_mixer_paths.xml
 
 PRODUCT_COPY_FILES += \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
-    $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
+    frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
+    frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-android.hardware.bluetooth@1.0
+    BluetoothQti \
+    liba2dpoffload \
+    libbthost_if \
+    vendor.qti.hardware.bluetooth_audio@2.0.vendor \
+    vendor.qti.hardware.btconfigstore@1.0.vendor
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 3120
@@ -155,10 +170,6 @@ PRODUCT_PACKAGES += \
     Snap \
     vendor.qti.hardware.camera.device@1.0.vendor
 
-# TOF Sensor
-PRODUCT_PACKAGES += \
-    sensors.hal.tof
-    
 # Context Hub
 PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0-impl.generic \
@@ -180,7 +191,7 @@ PRODUCT_PACKAGES += \
     gralloc.sdm845 \
     hwcomposer.sdm845 \
     memtrack.sdm845 \
-    vendor.display.config@1.7 \
+    vendor.display.config@1.9 \
     libtinyxml \
     libvulkan
 
@@ -208,17 +219,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += qcom.fmradio
 
-# Gesture handler
-PRODUCT_PACKAGES += \
-    GestureHandler
-
 # GPS
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl-qti \
-    android.hardware.gnss@1.0-service-qti \
-    libgnss \
-    libgnsspps
-
 PRODUCT_PACKAGES += \
     flp.conf \
     gps.conf \
@@ -236,11 +237,24 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.base@1.0_system \
-    android.hidl.manager-V1.0-java
+    android.hidl.manager@1.0 \
+    android.hidl.manager@1.0_system
 
 # HotwordEnrollement app permissions
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-hotword.xml \
     $(LOCAL_PATH)/permissions/privapp-permissions-hotword.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-hotword.xml
+
+# Init
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/etc/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
+
+$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/etc/init/hw/*.rc),\
+        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/$(notdir $f)))
+$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/etc/init/*.rc),\
+        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/etc/init/$(notdir $f)))
+$(foreach f,$(wildcard $(COMMON_PATH)/rootdir/bin/*.sh),\
+        $(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_VENDOR)/bin/$(notdir $f)))
 
 # IPA
 PRODUCT_PACKAGES += \
@@ -251,14 +265,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/keylayout/gpio-keys.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/gpio-keys.kl
 
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.lge_sdm845
+
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-lge_sdm845
+    vendor.lineage.livedisplay@2.0-service.lge_sdm845
 
 # Media
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
     $(COMMON_PATH)/configs/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
+    $(COMMON_PATH)/configs/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml \
     $(COMMON_PATH)/configs/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
     $(COMMON_PATH)/configs/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
     $(COMMON_PATH)/configs/media_profiles_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml \
@@ -276,15 +295,23 @@ PRODUCT_PACKAGES += \
 
 # NFC
 PRODUCT_PACKAGES += \
-    android.hardware.nfc@1.1-service \
+    android.hardware.nfc@1.0 \
+    android.hardware.nfc@1.1 \
+    android.hardware.nfc@1.2 \
+    android.hardware.nfc@1.2-service \
+    android.hardware.secure_element@1.0 \
+    android.hardware.secure_element@1.1 \
     com.android.nfc_extras \
     NfcNci \
     SecureElement \
-    Tag
+    Tag \
+    vendor.nxp.nxpnfc@1.0
 
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
+    libcodec2_hidl@1.0.vendor \
+    libcodec2_vndk.vendor \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -293,6 +320,7 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
+    libOmxVidcCommon \
     libstagefrighthw
 
 # Permissions
@@ -327,22 +355,27 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/permissions/privapp-permissions-judy.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-judy.xml
+    frameworks/base/data/etc/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-platform.xml \
+    frameworks/base/data/etc/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-platform.xml \
+    $(COMMON_PATH)/permissions/privapp-permissions-lge_sdm845.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-lge_sdm845.xml
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service \
-    power.sdm845
+    android.hardware.power@1.2-service-qti
 
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
+# QMI
+PRODUCT_PACKAGES += \
+    libjson \
+    libqti_vndfwk_detect \
+    libqti_vndfwk_detect.vendor
+
 # QTI
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/permissions/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml \
     $(COMMON_PATH)/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
-    $(COMMON_PATH)/permissions/qti_libpermissions.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/qti_libpermissions.xml
+    $(COMMON_PATH)/permissions/product_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-qti.xml
 
 # RCS
 PRODUCT_PACKAGES += \
@@ -355,13 +388,30 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
+# RIL
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.4 \
+    android.hardware.radio.config@1.2 \
+    libprotobuf-cpp-full \
+    librmnetctl \
+    libxml2
+
 # Seccomp policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
     $(LOCAL_PATH)/seccomp/mediaextractor-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediaextractor.policy
 
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service
+
 # Telephony
 PRODUCT_PACKAGES += \
+    qti-telephony-hidl-wrapper \
+    qti_telephony_hidl_wrapper.xml \
+    qti-telephony-utils \
+    qti_telephony_utils.xml \
     telephony-ext
 
 PRODUCT_BOOT_JARS += \
@@ -379,7 +429,7 @@ PRODUCT_PACKAGES += \
 
 # Touch
 PRODUCT_PACKAGES += \
-    vendor.lineage.touch@1.0-service.judy
+    vendor.lineage.touch@1.0-service.lge_sdm845
 
 # Trust HAL
 PRODUCT_PACKAGES += \
@@ -389,6 +439,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service \
     android.hardware.usb.gadget@1.0
+
+# Vendor libstdc++
+PRODUCT_PACKAGES += \
+    libstdc++.vendor
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -403,32 +457,23 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     hostapd \
-    libwpa_client \
-    libwifi-hal-ctrl \
     libwifi-hal-qcom \
-    vendor.qti.hardware.wifi.hostapd@1.0.vendor \
-    vendor.qti.hardware.wifi.hostapd@1.1.vendor \
-    vendor.qti.hardware.wifi.supplicant@2.0.vendor \
-    vendor.qti.hardware.wifi.supplicant@2.1.vendor \
-    wpa_supplicant
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf 
 
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf \
-    $(COMMON_PATH)/wifi/p2p_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant.conf \
     $(COMMON_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     $(COMMON_PATH)/wifi/wifi_concurrency_cfg.txt:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wifi_concurrency_cfg.txt \
     $(COMMON_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(COMMON_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
-PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/wifi/hostapd.accept:$(TARGET_COPY_OUT_VENDOR)/etc/hostapd/hostapd.accept \
-    $(COMMON_PATH)/wifi/hostapd.conf:$(TARGET_COPY_OUT_VENDOR)/etc/hostapd/hostapd.conf \
-    $(COMMON_PATH)/wifi/hostapd.deny:$(TARGET_COPY_OUT_VENDOR)/etc/hostapd/hostapd.deny
-
 # WiFi Display
 PRODUCT_PACKAGES += \
     libdisplayconfig \
+    libdisplayconfig.vendor \
     libnl \
+    libqdMetaData \
     libqdMetaData.system
 
 PRODUCT_BOOT_JARS += \
