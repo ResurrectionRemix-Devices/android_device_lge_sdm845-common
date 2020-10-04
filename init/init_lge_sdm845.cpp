@@ -48,6 +48,7 @@
 
 #include "vendor_init.h"
 #include "property_service.h"
+#include "vendor_init.h"
 
 using android::base::Trim;
 using android::base::GetProperty;
@@ -67,6 +68,24 @@ void property_override(const std::string& name, const std::string& value) {
                        << "__system_property_add failed";
         }
     }
+}
+
+void prop_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
+
+void property_override_dual(char const system_prop[], char const vendor_prop[],
+    char const value[])
+{
+    prop_override(system_prop, value);
+    prop_override(vendor_prop, value);
 }
 
 void init_target_properties() {
@@ -148,4 +167,6 @@ void init_target_properties() {
 void vendor_load_properties() {
     LOG(INFO) << "Loading vendor specific properties";
     init_target_properties();
+    property_override("ro.build.description", "judyln_lao_com-user 9 PKQ1.181105.001 1917215300e03.FGN release-keys");
+    property_override_dual("ro.build.fingerprint", "ro.vendor.build.fingerprint", "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys");
 }
