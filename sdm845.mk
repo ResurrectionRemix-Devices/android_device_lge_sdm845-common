@@ -267,7 +267,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-service.lge_sdm845
+    android.hardware.light@2.0-service.judyln
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
