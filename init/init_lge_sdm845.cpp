@@ -51,9 +51,6 @@
 #include "vendor_init.h"
 
 using android::base::Trim;
-int property_set(const char *key, const char *value) {
-    return __system_property_set(key, value);
-}
 
 void property_override(const std::string& name, const std::string& value) {
     size_t valuelen = value.size();
@@ -155,7 +152,7 @@ void init_target_properties() {
     }
 
     if(dualSim) {
-        property_set("persist.radio.multisim.config", "dsds");
+        property_override("persist.radio.multisim.config", "dsds");
     }
 
     property_override("ro.product.model", model);
