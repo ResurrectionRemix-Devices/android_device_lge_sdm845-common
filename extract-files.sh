@@ -2,6 +2,8 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
 # Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2018 The PixelExperience Project
+# Copyright (C) 2020 The Evolution X Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,38 +25,45 @@ VENDOR=lge
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
+if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
-AOSP_ROOT="$MY_DIR"/../../..
+EVO_ROOT="${MY_DIR}/../../.."
 
-HELPER="$AOSP_ROOT"/vendor/aosp/build/tools/extract_utils.sh
-if [ ! -f "$HELPER" ]; then
-    echo "Unable to find helper script at $HELPER"
+HELPER="${EVO_ROOT}/vendor/evolution/build/tools/extract_utils.sh"
+if [ ! -f "${HELPER}" ]; then
+    echo "Unable to find helper script at ${HELPER}"
     exit 1
 fi
-. "$HELPER"
+source "${HELPER}"
+
+# Default to sanitizing the vendor folder before extraction
+CLEAN_VENDOR=true
+SECTION=
+KANG=
 
 while [ "$1" != "" ]; do
-    case $1 in
+    case "$1" in
         -n | --no-cleanup )     CLEAN_VENDOR=false
                                 ;;
+        -k | --kang)            KANG="--kang"
+                                ;;
         -s | --section )        shift
-                                SECTION=$1
+                                SECTION="$1"
                                 CLEAN_VENDOR=false
                                 ;;
-        * )                     SRC=$1
+        * )                     SRC="$1"
                                 ;;
     esac
     shift
 done
 
-if [ -z "$SRC" ]; then
+if [ -z "${SRC}" ]; then
     SRC=/home/darren/stock/30b/system/
 fi
 
 # Initialize the helper
-setup_vendor "$DEVICE" "$VENDOR" "$AOSP_ROOT" false "$CLEAN_VENDOR"
+setup_vendor "${DEVICE}" "${VENDOR}" "${EVO_ROOT}" false "${CLEAN_VENDOR}"
 
-extract "$MY_DIR"/proprietary-files.txt "$SRC" "$SECTION"
+extract "${MY_DIR}/proprietary-files.txt" "${SRC}" ${KANG} --section "${SECTION}"
 
-"$MY_DIR"/setup-makefiles.sh
+"${MY_DIR}/setup-makefiles.sh"
