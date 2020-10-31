@@ -1,0 +1,1 @@
+allow op_file self:filesystem associate;

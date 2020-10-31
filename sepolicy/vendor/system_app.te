@@ -2,3 +2,6 @@ allow system_app sysfs_zram:dir r_file_perms;
 
 # allow system_app to interact with pasr hal
 hal_client_domain(system_app, hal_pasrmanager)
+
+
+allow system_server vendor_display_notch_prop:file { getattr open read };

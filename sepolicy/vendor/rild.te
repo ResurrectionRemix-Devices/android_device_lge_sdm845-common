@@ -1,1 +1,4 @@
 get_prop(rild, vendor_lge_misc_prop)
+allow rild vendor_default_prop:property_service set;
+allow rild default_prop:file r_file_perms;
+allow rild exported3_system_prop:file r_file_perms;

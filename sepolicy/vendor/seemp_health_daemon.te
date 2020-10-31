@@ -1,0 +1,2 @@
+allow seemp_health_daemon vfat:file { getattr open read };
+allow seemp_health_daemon vfat:dir search;

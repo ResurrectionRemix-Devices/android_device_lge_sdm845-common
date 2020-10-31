@@ -1,1 +1,2 @@
 get_prop(zygote, media_settings_prop)
+allow zygote self:capability kill;

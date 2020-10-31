@@ -1,2 +1,3 @@
 get_prop(netmgrd, vendor_lge_misc_prop)
 set_prop(netmgrd, vendor_radio_prop)
+allow netmgrd exported3_radio_prop:file r_file_perms;

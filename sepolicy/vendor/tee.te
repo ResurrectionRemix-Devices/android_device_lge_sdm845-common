@@ -5,3 +5,4 @@ allow tee persistlg_data_file:dir rw_dir_perms;
 allow tee persistlg_data_file:file { rw_file_perms create };
 
 allow tee persistlg_file:dir r_dir_perms;
+allow tee persist_file:dir r_dir_perms;
