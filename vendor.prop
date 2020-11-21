@@ -123,6 +123,10 @@ debug.sf.hw=1
 debug.sf.latch_unsignaled=1
 persist.sys.sf.native_mode=0 
 
+# Graphics
+ro.hardware.egl=adreno
+ro.hardware.vulkan=adreno
+
 # DPM
 persist.vendor.dpm.feature=0
 
