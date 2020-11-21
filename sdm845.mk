@@ -189,6 +189,7 @@ PRODUCT_PACKAGES += \
     memtrack.sdm845 \
     libdisplayconfig.qti \
     vendor.display.config@2.0 \
+    vendor.display.config@2.0.vendor \
     libtinyxml \
     libvulkan
 
