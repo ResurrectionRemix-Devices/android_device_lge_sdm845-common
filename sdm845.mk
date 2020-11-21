@@ -187,6 +187,7 @@ PRODUCT_PACKAGES += \
     gralloc.sdm845 \
     hwcomposer.sdm845 \
     memtrack.sdm845 \
+    vendor.display.config@1.3 \
     vendor.display.config@2.0 \
     vendor.display.config@2.0.vendor \
     libtinyxml \
