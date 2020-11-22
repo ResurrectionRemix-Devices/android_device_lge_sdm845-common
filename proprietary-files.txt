@@ -453,8 +453,8 @@ vendor/lib/libqti-iopd.so
 vendor/lib/vendor.qti.hardware.iop@1.0.so
 vendor/lib/vendor.qti.hardware.iop@2.0.so
 
-# IRQ balance
-vendor/bin/msm_irqbalance
+# IRQ balance - from LA.UM.9.8.r1-02700-SDM710.0
+vendor/bin/msm_irqbalance|c0910fb319bb8287f176f26078241299455baad0
 vendor/etc/msm_irqbalance.conf
 
 # Media - from LA.UM.9.8.r1-02700-SDM710.0
