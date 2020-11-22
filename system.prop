@@ -20,6 +20,9 @@ ro.charger.enable_suspend=true
 # CoreSight STM
 persist.debug.coresight.config=stm-events
 
+# Dex2oat
+dalvik.vm.dex2oat64.enabled=true
+
 #Netflix custom property
 ro.netflix.bsp_rev=Q845-05000-1
 
