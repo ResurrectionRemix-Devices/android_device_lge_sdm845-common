@@ -18,11 +18,9 @@ cc_library_static {
     name: "libinit_lge_sdm845",
     recovery_available: true,
     srcs: ["init_lge_sdm845.cpp"],
+    whole_static_libs: ["libbase"],
     include_dirs: [
         "system/core/base/include",
         "system/core/init"
-    ],
-    shared_libs: [
-        "libbase",
     ]
 }
