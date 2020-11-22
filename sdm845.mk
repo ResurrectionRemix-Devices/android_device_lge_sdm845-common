@@ -188,6 +188,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.sdm845 \
     memtrack.sdm845 \
     libdisplayconfig.qti \
+    vendor.display.config@1.0 \
     vendor.display.config@1.3 \
     vendor.display.config@2.0 \
     vendor.display.config@2.0.vendor \
