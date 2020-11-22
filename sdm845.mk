@@ -310,8 +310,10 @@ PRODUCT_PACKAGES += \
     Tag \
     vendor.nxp.nxpnfc@1.0
 
-# OMX
+# Media
 PRODUCT_PACKAGES += \
+    libavservices_minijail \
+    libavservices_minijail.vendor \
     libc2dcolorconvert \
     libcodec2_hidl@1.0.vendor \
     libcodec2_vndk.vendor \
