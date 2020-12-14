@@ -134,9 +134,6 @@ drm.service.enabled=true
 # Factory reset partition
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
 
-# Media
-media.settings.xml=/vendor/etc/media_profiles_vendor.xml
-
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
 ro.vendor.qti.sys.fw.bg_apps_limit=60
