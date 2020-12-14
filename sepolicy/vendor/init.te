@@ -10,16 +10,3 @@ allow init { persdata_block_device
 allow init firmware_file:filesystem getattr;
 
 allow init encrypt_block_device:blk_file write;
-
-allow init hal_graphics_composer_default:binder call;
-allow init hwservicemanager:binder { call transfer };
-allow init mnt_product_file:dir mounton;
-allow init op_file:dir mounton;
-allow init op_file:filesystem { mount relabelfrom relabelto };
-allow init sysfs_battery_supply:file setattr;
-allow init socket_device:sock_file create;
-allow init socket_device:sock_file setattr;
-allow init default_android_hwservice:hwservice_manager { add find };
-allow init hal_neuralnetworks_hwservice:hwservice_manager { add find };
-allow init hidl_base_hwservice:hwservice_manager add;
-allow init qdisplay_service:service_manager find;

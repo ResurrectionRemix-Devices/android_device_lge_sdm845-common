@@ -20,10 +20,10 @@ genfscon sysfs /devices/virtual/lg_rgb_led/use_patterns/onoff_patterns          
 genfscon sysfs /devices/virtual/lg_rgb_led/use_patterns/blink_patterns          u:object_r:sysfs_leds:s0
 
 # Livedisplay
-#genfscon sysfs /devices/virtual/panel/img_tune/screen_mode              u:object_r:sysfs_livedisplay_tuneable:s0
-#genfscon sysfs /devices/virtual/panel/img_tune/screen_tune              u:object_r:sysfs_livedisplay_tuneable:s0
-#genfscon sysfs /devices/virtual/panel/img_tune/rgb_tune                 u:object_r:sysfs_livedisplay_tuneable:s0
-#genfscon sysfs /devices/virtual/panel/img_tune/hdr_mode                 u:object_r:sysfs_livedisplay_tuneable:s0
+genfscon sysfs /devices/virtual/panel/img_tune/screen_mode              u:object_r:sysfs_livedisplay_tuneable:s0
+genfscon sysfs /devices/virtual/panel/img_tune/screen_tune              u:object_r:sysfs_livedisplay_tuneable:s0
+genfscon sysfs /devices/virtual/panel/img_tune/rgb_tune                 u:object_r:sysfs_livedisplay_tuneable:s0
+genfscon sysfs /devices/virtual/panel/img_tune/hdr_mode                 u:object_r:sysfs_livedisplay_tuneable:s0
 
 # Power
 genfscon sysfs /devices/platform/lge-unified-nodes                     u:object_r:sysfs_battery_supply:s0

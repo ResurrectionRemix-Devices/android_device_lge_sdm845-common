@@ -19,10 +19,3 @@ get_prop(hal_camera_default, camera_prop)
 get_prop(hal_camera_default, sensors_prop)
 get_prop(hal_camera_default, sensors_dbg_prop)
 get_prop(hal_camera_default, vendor_lge_misc_prop)
-
-allow hal_camera_default adbd_prop:file { getattr open };
-allow hal_camera_default apexd_prop:file { getattr open };
-allow hal_camera_default apk_verity_prop:file { getattr open };
-allow hal_camera_default sysfs:file { read write };
-allow hal_camera_default sysfs:file open;
-allow hal_camera_default default_prop:file r_file_perms;

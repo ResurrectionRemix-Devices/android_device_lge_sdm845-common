@@ -1,1 +1,0 @@
-allow vndservicemanager init:binder transfer;

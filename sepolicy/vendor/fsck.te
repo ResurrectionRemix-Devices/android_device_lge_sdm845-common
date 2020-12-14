@@ -7,10 +7,3 @@ allow fsck { persdata_block_device
              power_block_device 
              sns_block_device }:blk_file rw_file_perms;
 
-
-allow fsck block_device:blk_file { ioctl open read write };
-allow fsck persist_file:dir getattr;
-allow fsck self:capability { dac_override kill };
-allow fsck tmpfs:blk_file getattr;
-allow fsck op_file:dir getattr;
-allow fsck oemfs:dir search;

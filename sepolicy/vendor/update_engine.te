@@ -1,3 +1,0 @@
-allow update_engine device:file { open write };
-allow update_engine platform_app:binder call;
-allow update_engine proc_filesystems:file r_file_perms;

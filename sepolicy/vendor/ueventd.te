@@ -6,6 +6,3 @@ allow ueventd persistlg_wlan_file:file r_file_perms;
 allow ueventd metadata_file:dir search;
 
 allow ueventd ueventd:capability sys_nice;
-
-allow ueventd vfat:dir search;
-allow ueventd vfat:file { getattr open read };

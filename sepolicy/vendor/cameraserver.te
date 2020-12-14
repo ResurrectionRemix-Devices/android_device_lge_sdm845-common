@@ -1,1 +1,0 @@
-allow cameraserver media_settings_prop:file r_file_perms;
