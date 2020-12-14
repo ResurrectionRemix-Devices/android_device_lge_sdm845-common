@@ -196,8 +196,9 @@ PRODUCT_PACKAGES += \
     libvulkan
 
 # Doze
-# PRODUCT_PACKAGES += \
-#    LGEDoze
+ PRODUCT_PACKAGES += \
+    DeviceParts \
+    LGEDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \
