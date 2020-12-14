@@ -455,7 +455,7 @@ vendor/lib/vendor.qti.hardware.iop@2.0.so
 
 # IRQ balance - from LA.UM.9.8.r1-02700-SDM710.0
 vendor/bin/msm_irqbalance|c0910fb319bb8287f176f26078241299455baad0
-vendor/etc/msm_irqbalance.conf
+vendor/etc/msm_irqbalance.conf|8834f7234f36e33543b43397a76c57de663907c3
 
 # Media - from LA.UM.9.8.r1-02700-SDM710.0
 vendor/bin/vppservice|555301b19a86374900159423c88efd7bd9cea2f9
