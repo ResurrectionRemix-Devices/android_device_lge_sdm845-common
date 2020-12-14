@@ -148,7 +148,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     liba2dpoffload \
     libbthost_if \
-    BluetoothQti \
+    Bluetooth \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor
 
@@ -197,8 +197,8 @@ PRODUCT_PACKAGES += \
     libvulkan
 
 # Doze
-PRODUCT_PACKAGES += \
-    LGEDoze
+# PRODUCT_PACKAGES += \
+#    LGEDoze
 
 # Fingerprint
 PRODUCT_PACKAGES += \
