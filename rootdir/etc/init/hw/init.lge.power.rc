@@ -52,3 +52,10 @@ service vendor.smpl_count /vendor/bin/smpl_count
    class main
    user root
    oneshot
+
+ # msm_drm
+   write /proc/irq/7/smp_affinity_list 2
+
+# kgsl-3d0
+   write /proc/irq/489/smp_affinity_list 1
+

@@ -4481,10 +4481,11 @@ case "$target" in
 	echo 10 > /sys/class/devfreq/soc:qcom,mincpubw/polling_interval
 
 	# cpuset parameters
-        echo 0-3 > /dev/cpuset/background/cpus
-        echo 0-3 > /dev/cpuset/system-background/cpus
-        echo 0-3 > /dev/cpuset/restricted/cpus
-        echo 0-7 > /dev/cpuset/foreground/cpus
+        write /dev/cpuset/top-app/cpus "0-7"
+        write /dev/cpuset/foreground/cpus "0-3,6-7"
+        write /dev/cpuset/background/cpus "0-1"
+        write /dev/cpuset/system-background/cpus "0-3"
+        write /dev/cpuset/restricted/cpus "0-3"
 
 	# Turn off scheduler boost at the end
         echo 0 > /proc/sys/kernel/sched_boost
