@@ -120,11 +120,6 @@ vendor.display.enable_default_color_mode=1
 debug.sf.latch_unsignaled=1
 persist.sys.sf.native_mode=0 
 
-# Graphics
-ro.hardware.egl=adreno
-ro.hardware.vulkan=adreno
-vendor.display.disable_rotator_downscale=1
-
 # DPM
 persist.vendor.dpm.feature=0
 
@@ -133,6 +128,14 @@ drm.service.enabled=true
 
 # Factory reset partition
 ro.frp.pst=/dev/block/bootdevice/by-name/frp
+
+# Graphics
+ro.hardware.egl=adreno
+ro.hardware.vulkan=adreno
+vendor.display.disable_rotator_downscale=1
+
+# Memory
+persist.device_config.use_cgroup_freezer=true
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
