@@ -53,7 +53,8 @@ service vendor.smpl_count /vendor/bin/smpl_count
    user root
    oneshot
 
- # msm_drm
+on enable-low-power
+# msm_drm
    write /proc/irq/7/smp_affinity_list 2
 
 # kgsl-3d0
